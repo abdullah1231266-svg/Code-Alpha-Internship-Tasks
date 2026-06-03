@@ -1,0 +1,52 @@
+<?php
+// VULNERABLE LOGIN - SQL Injection Demo (No Database Required)
+
+$user = $_POST['username'];
+$pass = $_POST['password'];
+
+// Vulnerable SQL query simulation
+$query = "SELECT * FROM users WHERE username = '$user' AND password = '$pass'";
+
+echo "<!DOCTYPE html>
+<html>
+<head>
+    <title>SQL Injection Demo</title>
+    <style>
+        body { font-family: Arial; background: #1a1a2e; color: white; padding: 50px; }
+        .container { max-width: 600px; margin: auto; background: rgba(255,255,255,0.1); padding: 30px; border-radius: 10px; }
+        .success { color: #51cf66; }
+        .error { color: #ff6b6b; }
+        .code { background: #16213e; padding: 15px; border-radius: 5px; font-family: monospace; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <h1>⚠️ VULNERABLE LOGIN SYSTEM</h1>";
+
+// Check for SQL Injection patterns
+if(strpos($user, "' OR '1'='1'") !== false || 
+   strpos($user, "' --") !== false ||
+   strpos($user, "admin'--") !== false) {
+    echo "<div class='success'>
+            <h2>✅ LOGIN SUCCESSFUL!</h2>
+            <p>SQL Injection attack was successful! You bypassed authentication.</p>
+          </div>";
+    echo "<div class='code'>
+            <strong>🔍 Vulnerable Query Executed:</strong><br>
+            <code>$query</code>
+          </div>";
+    echo "<div class='code'>
+            <strong>⚠️ What happened?</strong><br>
+            The single quote closed the string, and 'OR 1=1' made the condition always true.
+          </div>";
+} 
+elseif($user == "admin" && $pass == "admin123") {
+    echo "<div class='success'><h2>✅ LOGIN SUCCESSFUL!</h2><p>Welcome admin!</p></div>";
+} 
+else {
+    echo "<div class='error'><h2>❌ LOGIN FAILED!</h2><p>Invalid credentials</p></div>";
+}
+
+echo "<a href='test_vulnerable.html' style='color: #e94560;'>← Back to Login</a>";
+echo "</div></body></html>";
+?>

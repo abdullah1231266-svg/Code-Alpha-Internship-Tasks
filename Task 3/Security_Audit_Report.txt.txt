@@ -1,0 +1,37 @@
+Security Audit Report - CodeAlpha Task 3
+
+Project Information
+
+- Auditor: Abdullah Awan
+
+- Date: May 2026
+
+- Application Type: User Authentication System
+
+- Language: PHP
+
+- Audit Type: Manual Code Review + Static Analysis
+
+Executive Summary
+
+| Severity | Count |
+
+|----------|-------|
+
+| Critical | 6 |
+
+| High | 4 |
+
+| Medium | 3 |
+
+| Low | 2 |
+
+| **Total** | **15** |
+
+Critical Vulnerabilities Found
+
+1. SQL Injection (CRITICAL)
+
+Location: vulnerable\_login.php Line 15
+
+$query = "SELECT \* FROM users WHERE username = '$user' AND password = '$pass'";
