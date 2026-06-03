@@ -1,0 +1,63 @@
+from scapy.all import sniff, IP, TCP, UDP, ICMP
+import time
+from datetime import datetime
+
+# Statistics
+packet_count = 0
+tcp_count = 0
+udp_count = 0
+icmp_count = 0
+other_count = 0
+
+def packet_handler(packet):
+    global packet_count, tcp_count, udp_count, icmp_count, other_count
+
+    packet_count += 1
+
+    if IP in packet:
+        src = packet[IP].src
+        dst = packet[IP].dst
+
+        if TCP in packet:
+            tcp_count += 1
+            sport = packet[TCP].sport
+            dport = packet[TCP].dport
+            print(f"[TCP] {src}:{sport} → {dst}:{dport}")
+
+            # Alert for suspicious ports
+            if dport in [22, 23, 3389, 445, 1433, 3306]:
+                print(f"  ⚠️ ALERT: Suspicious port {dport} detected!")
+
+        elif UDP in packet:
+            udp_count += 1
+            sport = packet[UDP].sport
+            dport = packet[UDP].dport
+            print(f"[UDP] {src}:{sport} → {dst}:{dport}")
+
+        elif ICMP in packet:
+            icmp_count += 1
+            print(f"[ICMP] {src} → {dst}")
+
+        else:
+            other_count += 1
+            print(f"[OTHER] {src} → {dst}")
+
+def show_stats():
+    print("\n" + "="*50)
+    print("📊 STATISTICS")
+    print("="*50)
+    print(f"Total Packets: {packet_count}")
+    print(f"TCP: {tcp_count} | UDP: {udp_count} | ICMP: {icmp_count} | Other: {other_count}")
+    print("="*50)
+
+print("="*50)
+print("🔍 NETWORK SNIFFER - Windows Edition")
+print("="*50)
+print("Sniffing 20 packets... Press Ctrl+C to stop\n")
+
+try:
+    sniff(prn=packet_handler, count=20)
+    show_stats()
+except KeyboardInterrupt:
+    show_stats()
+    print("\n✅ Sniffer stopped!")
