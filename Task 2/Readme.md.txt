@@ -38,8 +38,7 @@ Open index.html in any web browser.
 
 - Interactive Quiz
 
-LinkedIn vedio link https://www.linkedin.com/posts/abdullah-awan-a62618225_codealpha-cybersecurity-phishingawareness-ugcPost-7467797782175571969-p2yF/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADiCpOoBY9e2T_kNP7-7mn4QaKbt0lhFgFg
-
+LinkedIn vedio link https://www.linkedin.com/posts/abdullah-awan-a62618225_codealpha-cybersecurity-phishingawareness-activity-7467797838488551424-SaGG?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAAEkFfMEBqduaYs6QZ_PKns7BJhJFvVfg72E&utm_campaign=copy_link
 ## Created For
 
 @CodeAlpha Cyber Security Internship
